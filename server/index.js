@@ -7,7 +7,7 @@ import passport from "passport";
 import LocalStrategy from 'passport-local';
 import session from 'express-session';
 
-import { getUser, listPlayers, listSegments, listLines, listEvents } from "./dao.js";
+import { getUser, listPlayers, listSegments, listLines, listEvents, listStations } from "./dao.js";
 
 // init express
 const app = new express();
@@ -77,6 +77,10 @@ app.delete("/api/sessions/current", (req, res) => {
 
 app.get("/api/players", (req, res) => {
   listPlayers().then(players => res.json(players)).catch(() => res.status(500).end());
+});
+
+app.get("/api/stations", isLoggedIn, (req, res) => {
+  listStations().then(stations => res.json(stations)).catch(() => res.status(500).end());
 });
 
 app.get("/api/segments", isLoggedIn, (req, res) => {

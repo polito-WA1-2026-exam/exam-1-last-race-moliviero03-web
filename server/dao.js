@@ -47,6 +47,29 @@ export const listPlayers = () => {
     });
 }
 
+export const listStations = () => {
+    return new Promise((resolve, reject) => {
+        const sql = `SELECT line.station1, line.station2 FROM line`;
+        db.all(sql, (err, rows) => {
+            if (err){
+                reject(err);
+            }
+            else{
+                const stations = [];
+                for (const row of rows){
+                    if (!stations.includes(row.station1)){
+                        stations.push(row.station1);
+                    }
+                    if (!stations.includes(row.station2)){
+                        stations.push(row.station2);
+                    }
+                }
+                resolve(stations);
+            }
+        })
+    })
+}
+
 export const listSegments = () => {
     return new Promise((resolve, reject) => {
         const sql = `SELECT line.station1, line.station2 FROM line`;

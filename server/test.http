@@ -35,6 +35,11 @@ GET http://localhost:3001/api/players
 
 ###
 
+# List Stations
+GET http://localhost:3001/api/stations
+
+###
+
 # List Segments
 GET http://localhost:3001/api/segments
 
