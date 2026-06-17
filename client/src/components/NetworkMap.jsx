@@ -5,18 +5,18 @@ import { useNavigate } from "react-router";
 import { getSegments } from "../api/api";
 
 const stations = {
-    "Centrale": {x: 780, y: 380},
-    "Porta Velaria": {x: 230, y: 210},
-    "Crocevia del Falco": {x: 470, y: 180},
-    "Piazza delle Lanterne": {x: 970, y: 580},
+    "Centrale": {x: 630, y: 380},
+    "Porta Velaria": {x: 170, y: 210},
+    "Crocevia del Falco": {x: 370, y: 180},
+    "Piazza delle Lanterne": {x: 740, y: 580},
     "Borgo Sereno": {x: 30, y: 30},
-    "Viale dei Mosaici": {x: 970, y: 180},
-    "Fontana Oscura": {x: 720, y: 210},
-    "Torre Cinerea": {x: 530, y: 410},
+    "Viale dei Mosaici": {x: 740, y: 180},
+    "Fontana Oscura": {x: 570, y: 210},
+    "Torre Cinerea": {x: 430, y: 410},
     "Campo dell'Eco": {x: 30, y: 410},
-    "Arco Romano": {x: 470, y: 580},
-    "Piazza del Popolo": {x: 280, y: 380},
-    "Borgo Medioevale": {x: 530, y: 30}
+    "Arco Romano": {x: 370, y: 580},
+    "Piazza del Popolo": {x: 230, y: 380},
+    "Borgo Medioevale": {x: 430, y: 30}
 }
 
 function NetworkMap(props){
@@ -27,9 +27,9 @@ function NetworkMap(props){
     const segments = props.segments;
 
     return(
-        <div style={{ border: '2px solid black', width: '1150px', height: '600px', backgroundColor: '#e9ecef'}}>
+        <div style={{ border: '2px solid black', width: '950px', height: '600px', backgroundColor: '#e9ecef'}}>
             <svg width="100%" height="100%">
-                <DrawSegments segments={segments} />
+                <DrawSegments segments={segments} overrideColor={props.overrideColor}/>
                 <DrawStations stationNames={stationNames} />
             </svg>
         </div>
@@ -68,7 +68,7 @@ function DrawSegments(props){
                     const key = `${segment.station1} - ${segment.station2}`;
 
                     return (
-                        <line key={key} x1={p1.x} y1={p1.y} x2={p2.x} y2={p2.y} stroke={segment.color} strokeWidth="6" />
+                        <line key={key} x1={p1.x} y1={p1.y} x2={p2.x} y2={p2.y} stroke={props.overrideColor || segment.color} strokeWidth="6" />
                     );
                 }
                 return null;

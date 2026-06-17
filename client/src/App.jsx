@@ -11,6 +11,7 @@ import { LoginForm, Logout } from './components/LoginForm.jsx';
 import { RulesDisplay } from './components/RulesDisplay.jsx';
 import { NetworkMap } from './components/NetworkMap.jsx';
 import { RankingDisplay } from './components/RankingDisplay.jsx';
+import { SegmentListDisplay } from './components/SegmentListDisplay.jsx';
 
 import { checkSession, doLogin } from './api/auth.js'
 import { getSegments } from './api/api.js';
@@ -44,6 +45,7 @@ function App() {
             <Route path='login' element={<LoginForm login={login} />} />
             <Route path='logout' element={<Logout login={login} />} />
             <Route path='setup' element={<SetupView />} />
+            <Route path='planning' element={<PlanningView />} />
             <Route path='*' element={<h1>Something went wrong</h1>} />
           </Route>
         </Routes>
@@ -87,6 +89,8 @@ function HomeView(props){
 function SetupView(props){
   const [segments, setSegments] = useState([]);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     async function getSegmentList(){
       try{
@@ -102,9 +106,51 @@ function SetupView(props){
   }, []);
 
   return(
-    <GameModeContext.Provider value={"setup"}>
-      <NetworkMap segments={segments} />
-    </GameModeContext.Provider>
+    <Container>
+      <Row>
+        <NetworkMap segments={segments} />
+      </Row>
+      <Row>
+        <Button className="shadow-none" onClick={() => navigate('/planning')}>
+          GO ON
+        </Button>
+      </Row>
+    </Container>
+  )
+}
+
+function PlanningView(props){
+  const [segments, setSegments] = useState([]);
+
+  useEffect(() => {
+    async function getSegmentList(){
+      try{
+        const segment_list = await getSegments();
+        let filtered_segments = segment_list.map(s => ({...s, active: 0}));
+        setSegments(filtered_segments);
+      }
+      catch (ex){
+        navigate('/*');
+      }
+    }
+    getSegmentList()
+  }, []);
+
+  const addSegment = (segment) => {
+    setSegments(old => old.map(s => (s.station1 === segment.station1 && s.station2 === segment.station2) ? {...s, active: 1} : s));
+  }
+
+  return (
+    <Container>
+      <Row>
+        <Col md={9} className="d-flex">
+          <NetworkMap segments={segments} overrideColor={"black"}/>
+        </Col>
+        <Col md={3} className="d-flex">
+          <SegmentListDisplay segments={segments} addSegment={addSegment} />
+        </Col>
+      </Row>
+    </Container>
   )
 }
 
