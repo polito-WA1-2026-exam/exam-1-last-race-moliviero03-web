@@ -106,14 +106,18 @@ function SetupView(props){
   }, []);
 
   return(
-    <Container>
-      <Row>
-        <NetworkMap segments={segments} />
+    <Container className="mt-1">
+      <Row className="justify-content-center mb-2">
+        <Col xs="auto">
+          <NetworkMap segments={segments} />
+        </Col>
       </Row>
-      <Row>
-        <Button className="shadow-none" onClick={() => navigate('/planning')}>
-          GO ON
-        </Button>
+      <Row className="justify-content-center">
+        <Col xs="auto">
+          <Button className="shadow-none px-5" onClick={() => navigate('/planning')}>
+            GO ON
+          </Button>
+        </Col>
       </Row>
     </Container>
   )
@@ -141,8 +145,8 @@ function PlanningView(props){
   }
 
   return (
-    <Container>
-      <Row>
+    <Container className="mt-1">
+      <Row className="justify-content-center mb-2">
         <Col md={9} className="d-flex">
           <NetworkMap segments={segments} overrideColor={"black"}/>
         </Col>
