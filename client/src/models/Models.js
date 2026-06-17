@@ -7,6 +7,7 @@ function Segment(station1, station2, color){
     this.station1 = station1;
     this.station2 = station2;
     this.color = color;
+    this.active = 0;
 }
 
 function Line(lineNumber, segments){

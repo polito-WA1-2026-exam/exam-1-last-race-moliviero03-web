@@ -13,6 +13,7 @@ import { NetworkMap } from './components/NetworkMap.jsx';
 import { RankingDisplay } from './components/RankingDisplay.jsx';
 
 import { checkSession, doLogin } from './api/auth.js'
+import { getSegments } from './api/api.js';
 
 function App() {
 
@@ -42,7 +43,7 @@ function App() {
             <Route path='home' element={<HomeView />} />
             <Route path='login' element={<LoginForm login={login} />} />
             <Route path='logout' element={<Logout login={login} />} />
-            <Route path='setup' element={<NetworkMap />} />
+            <Route path='setup' element={<SetupView />} />
             <Route path='*' element={<h1>Something went wrong</h1>} />
           </Route>
         </Routes>
@@ -80,6 +81,30 @@ function HomeView(props){
         </Col>
       </Row>
     </Container>
+  )
+}
+
+function SetupView(props){
+  const [segments, setSegments] = useState([]);
+
+  useEffect(() => {
+    async function getSegmentList(){
+      try{
+        const segment_list = await getSegments();
+        let filtered_segments = segment_list.map(s => ({...s, active: 1}));
+        setSegments(filtered_segments);
+      }
+      catch (ex){
+        navigate('/*');
+      }
+    }
+    getSegmentList()
+  }, []);
+
+  return(
+    <GameModeContext.Provider value={"setup"}>
+      <NetworkMap segments={segments} />
+    </GameModeContext.Provider>
   )
 }
 

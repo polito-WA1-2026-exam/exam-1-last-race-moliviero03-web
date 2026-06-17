@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
@@ -24,20 +24,7 @@ function NetworkMap(props){
 
     const navigate = useNavigate();
 
-    const [segments, setSegments] = useState([]);
-
-    useEffect(() => {
-        async function getSegmentList(){
-            try{
-                const segments_list = await getSegments();
-                setSegments(segments_list);
-            }
-            catch (ex){
-                navigate('/*')
-            }
-        }
-        getSegmentList()
-    }, []);
+    const segments = props.segments;
 
     return(
         <div style={{ border: '2px solid black', width: '1150px', height: '600px', backgroundColor: '#e9ecef'}}>
@@ -73,13 +60,18 @@ function DrawSegments(props){
 
     return (
         <>
-            {segments.map((segment, index) => {
-                const p1 = stations[segment.station1];
-                const p2 = stations[segment.station2];
+            {segments.map((segment) => {
+                if (segment.active == 1){
+                    const p1 = stations[segment.station1];
+                    const p2 = stations[segment.station2];
 
-                return (
-                    <line key={index} x1={p1.x} y1={p1.y} x2={p2.x} y2={p2.y} stroke={segment.color} strokeWidth="6" />
-                );
+                    const key = `${segment.station1} - ${segment.station2}`;
+
+                    return (
+                        <line key={key} x1={p1.x} y1={p1.y} x2={p2.x} y2={p2.y} stroke={segment.color} strokeWidth="6" />
+                    );
+                }
+                return null;
             })}
         </>
     )
