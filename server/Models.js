@@ -3,9 +3,10 @@ function Player(username, bestScore){
     this.best_score = bestScore === null ? 0 : bestScore;
 }
 
-function Segment(station1, station2){
+function Segment(station1, station2, color){
     this.station1 = station1;
     this.station2 = station2;
+    this.color = color;
 }
 
 function Line(lineNumber, segments){

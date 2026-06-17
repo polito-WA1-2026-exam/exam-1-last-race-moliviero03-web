@@ -72,13 +72,13 @@ export const listStations = () => {
 
 export const listSegments = () => {
     return new Promise((resolve, reject) => {
-        const sql = `SELECT line.station1, line.station2 FROM line`;
+        const sql = `SELECT line.station1, line.station2, line.color FROM line`;
         db.all(sql, (err, rows) => {
             if (err){
                 reject(err);
             }
             else{
-                const segments = rows.map((s) => new Segment(s.station1, s.station2));
+                const segments = rows.map((s) => new Segment(s.station1, s.station2, s.color));
                 resolve(segments);
             }
         });
@@ -87,7 +87,7 @@ export const listSegments = () => {
 
 const listLineSegments = (lineNumber) => {
     return new Promise((resolve, reject) => {
-        const sql = `SELECT line.station1, line.station2 FROM line
+        const sql = `SELECT line.station1, line.station2, line.color FROM line
                     WHERE line.lineNumber = ?
                     ORDER BY line.segIndex ASC`;
         db.all(sql, [lineNumber], (err, rows) => {
@@ -95,7 +95,7 @@ const listLineSegments = (lineNumber) => {
                 reject(err);
             }
             else{
-                const lineSegments = rows.map((ls) => new Segment(ls.station1, ls.station2));
+                const lineSegments = rows.map((ls) => new Segment(ls.station1, ls.station2, ls.color));
                 resolve(lineSegments);
             }
         });

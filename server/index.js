@@ -83,7 +83,7 @@ app.get("/api/stations", isLoggedIn, (req, res) => {
   listStations().then(stations => res.json(stations)).catch(() => res.status(500).end());
 });
 
-app.get("/api/segments", isLoggedIn, (req, res) => {
+app.get("/api/segments", (req, res) => {
   listSegments().then(segments => res.json(segments)).catch(() => res.status(500).end());
 });
 
