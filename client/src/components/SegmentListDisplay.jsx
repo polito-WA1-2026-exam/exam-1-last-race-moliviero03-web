@@ -8,10 +8,11 @@ function SegmentListDisplay(props){
             <ListGroup>
                 {segments.map((s) => {
                     const key = `${s.station1} - ${s.station2}`;
+                    const isSelected = s.active === 1;
 
                     return(
                         <ListGroup.Item key={key}
-                            className="mb-2 rounded border shadow-sm text-center"
+                            className={`mb-2 rounded border shadow-sm text-center ${isSelected ? 'opacity-50 bg-light' : ''}`}
                             action
                             onClick={() => props.addSegment(s)}>
                             <div className="fw-bold">{s.station1}</div>

@@ -37,22 +37,33 @@ function PlanningView(props){
   }, []);
 
   const addSegment = (segment) => {
-    setSegments(old => old.map(s => (s.station1 === segment.station1 && s.station2 === segment.station2) ? {...s, active: 1} : s));
-    setLocalRoute(old => [...old, segment]);
+    const isActive = segment.active === 1;
+    setSegments(old => old.map(s => 
+        (s.station1 === segment.station1 && s.station2 === segment.station2)
+            ? {...s, active: isActive ? 0 : 1} : s));
+    if (isActive){
+        setLocalRoute(old => old.filter(s => !(s.station1 === segment.station1 && s.station2 === segment.station2)));
+    }
+    else{
+        setLocalRoute(old => [...old, segment]);
+    }
   }
 
   return (
     <Container className="mt-1">
       <Row className="justify-content-center mb-2">
         <Col md={9} className="d-flex">
-          <NetworkMap segments={segments} overrideColor={"black"} startAndFinish={startAndFinish} />
+          <NetworkMap segments={segments} overrideColor={"orange"} startAndFinish={startAndFinish} />
         </Col>
         <Col md={3} className="d-flex">
           <SegmentListDisplay segments={segments} addSegment={addSegment} />
         </Col>
       </Row>
       <Row className="justify-content-center">
-        <Col xs="auto">
+        <Col md={2}>
+            <Timer />
+        </Col>
+        <Col md={2}>
           <Button className="shadow-none px-5" onClick={() => {
             props.setRoute(localRoute);
             navigate('/*');
@@ -63,6 +74,26 @@ function PlanningView(props){
       </Row>
     </Container>
   )
+}
+
+function Timer(props){
+    const [time, setTime] = useState(90);
+
+    useEffect(() => {
+        const interval = setInterval(() =>{setTime(prevTime => prevTime - 1);}, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        if (time <= 0){
+            console.log("Time's up");
+        }
+    }, [time]);
+
+    return(
+        <h2>{time}</h2>
+    )
 }
 
 const randomStation = (station_list, segment_list) => {

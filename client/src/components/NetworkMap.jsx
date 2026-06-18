@@ -2,8 +2,6 @@ import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
-import { getSegments } from "../api/api";
-
 const stations = {
     "Centrale": {x: 630, y: 380},
     "Porta Velaria": {x: 170, y: 210},
@@ -46,12 +44,17 @@ function DrawStations(props){
             {stationNames.map((name) => {
                 const coords = stations[name];
 
+                const isStart = name === startAndFinish[0];
+                const isFinish = name === startAndFinish[1];
+
+                const circleColor = isStart ? "green" : (isFinish ? "red": "white");
+
                 return (
                     <g key={name}>
-                        <circle cx={coords.x} cy={coords.y} r="10" fill="white" stroke="black" strokeWidth="3" />
+                        <circle cx={coords.x} cy={coords.y} r="10" fill={circleColor} stroke="black" strokeWidth="3" />
                         <text x={coords.x + 15} y={coords.y + 5} fontFamily="Arial" fontWeight="bold">{name}</text>
-                        {(name === startAndFinish[0]) && <text x={coords.x - 10} y={coords.y - 15} fontFamily="Arial" fontWeight="bold" fill="green">START</text>}
-                        {(name === startAndFinish[1]) && <text x={coords.x - 10} y={coords.y - 15} fontFamily="Arial" fontWeight="bold" fill="red">FINISH</text>}
+                        {isStart && <text x={coords.x - 10} y={coords.y - 15} fontFamily="Arial" fontWeight="bold" fill="green">START</text>}
+                        {isFinish && <text x={coords.x - 10} y={coords.y - 15} fontFamily="Arial" fontWeight="bold" fill="red">FINISH</text>}
                     </g>
                 );
             })}
