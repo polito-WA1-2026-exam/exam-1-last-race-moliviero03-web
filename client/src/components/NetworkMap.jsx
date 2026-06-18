@@ -30,7 +30,7 @@ function NetworkMap(props){
         <div style={{ border: '2px solid black', width: '950px', height: '600px', backgroundColor: '#e9ecef'}}>
             <svg width="100%" height="100%">
                 <DrawSegments segments={segments} overrideColor={props.overrideColor}/>
-                <DrawStations stationNames={stationNames} />
+                <DrawStations stationNames={stationNames} startAndFinish={props.startAndFinish}/>
             </svg>
         </div>
     )
@@ -38,6 +38,8 @@ function NetworkMap(props){
 
 function DrawStations(props){
     const stationNames = props.stationNames;
+
+    const startAndFinish = props.startAndFinish || [];
 
     return (
         <>
@@ -48,6 +50,8 @@ function DrawStations(props){
                     <g key={name}>
                         <circle cx={coords.x} cy={coords.y} r="10" fill="white" stroke="black" strokeWidth="3" />
                         <text x={coords.x + 15} y={coords.y + 5} fontFamily="Arial" fontWeight="bold">{name}</text>
+                        {(name === startAndFinish[0]) && <text x={coords.x - 10} y={coords.y - 15} fontFamily="Arial" fontWeight="bold" fill="green">START</text>}
+                        {(name === startAndFinish[1]) && <text x={coords.x - 10} y={coords.y - 15} fontFamily="Arial" fontWeight="bold" fill="red">FINISH</text>}
                     </g>
                 );
             })}

@@ -12,7 +12,6 @@ function LoginForm(props){
     const doSubmit = async (event) => {
         event.preventDefault();
         setError('');
-        console.log(username, pwd);
 
         try{
             const user = await doLogin(username, pwd);

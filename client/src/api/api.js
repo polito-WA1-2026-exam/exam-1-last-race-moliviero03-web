@@ -2,7 +2,9 @@ import { Segment } from "../models/Models.js";
 
 async function getSegments() {
     try{
-        const resp = await fetch('http://localhost:3001/api/segments');
+        const resp = await fetch('http://localhost:3001/api/segments', {
+            credentials: 'include'
+        });
 
         if (resp.ok){
             const segments_list = await resp.json();
@@ -13,7 +15,26 @@ async function getSegments() {
         }
     }
     catch (ex){
-        throw new Error("Network error", { cause: ex })
+        throw new Error("Network error", { cause: ex });
+    }
+}
+
+async function getStations() {
+    try{
+        const resp = await fetch('http://localhost:3001/api/stations', {
+            credentials: 'include'
+        });
+
+        if (resp.ok){
+            const stations_list = await resp.json();
+            return stations_list;
+        }
+        else{
+            throw new Error("HTTP error in getStations, code=" + resp.status);
+        }
+    }
+    catch (ex){
+        throw new Error("Network error", { cause: ex });
     }
 }
 
@@ -34,4 +55,4 @@ async function getPlayers() {
     }
 }
 
-export {getSegments, getPlayers}
+export {getSegments, getStations, getPlayers}
