@@ -29,7 +29,6 @@ function PlanningView(props){
         setStartAndFinish(randomStation(shuffled_stations, shuffled_segments));
       }
       catch (ex){
-        console.log("error in effect of segments")
         navigate('/*');
       }
     }
@@ -65,8 +64,14 @@ function PlanningView(props){
         </Col>
         <Col md={2}>
           <Button className="shadow-none px-5" onClick={() => {
-            props.setRoute(localRoute);
-            navigate('/*');
+            const valid = validate(localRoute, startAndFinish);
+            if (valid === false){
+              navigate('/*');
+            }
+            else{
+              props.setRoute(valid);
+              navigate('/execution');
+            }
           }}>
             SUBMIT
           </Button>
@@ -151,7 +156,7 @@ const check = (graph, startAndFinish) => {
   while(to_visit.length > 0) {
     const curr = to_visit.shift();
     
-    if (curr == finish){
+    if (curr === finish){
       break;
     }
 
@@ -165,6 +170,52 @@ const check = (graph, startAndFinish) => {
   }
 
   return dist[finish] !== undefined && dist[finish] > 2;
+}
+
+const validate = (route, startAndFinish) => {
+  let r = [...route];
+
+  const start = startAndFinish[0];
+  const finish = startAndFinish[1];
+
+  const count = {}
+  for (let seg of route){
+    count[seg.station1] = (count[seg.station1] || 0) + 1;
+    count[seg.station2] = (count[seg.station2] || 0) + 1;
+  }
+  if (!Object.keys(count).includes(start) || !Object.keys(count).includes(finish)) return false;
+  for (let [stat, freq] of Object.entries(count)){
+    if ((freq%2 == 1) && stat !== start && stat !== finish) return false;
+    if ((freq%2 == 0) && (stat === start || stat === finish)) return false;
+  }
+
+  let fr = [];
+  let visited = [];
+
+  let curr = start;
+
+  while (r.length > 0){
+    let flag = false;
+    for (let seg of r){
+      if (seg.station1 === curr || seg.station2 === curr){
+        curr = seg.station1 === curr ? seg.station2 : seg.station1;
+        r = r.filter(s => !(s.station1 === seg.station1 && s.station2 === seg.station2));
+        fr.push(seg);
+        flag = true;
+        r = r.concat(visited);
+        visited = []
+        break;
+      }
+    }
+
+    if (flag === false){
+      let lastSeg = fr.pop();
+      curr = lastSeg.station1 === curr ? lastSeg.station2 : lastSeg.station1;
+      visited.push(lastSeg);
+    }
+  }
+
+  return fr;
 }
 
 export {PlanningView}

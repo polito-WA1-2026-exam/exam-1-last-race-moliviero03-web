@@ -12,6 +12,7 @@ import { RulesDisplay } from './components/RulesDisplay.jsx';
 import { RankingDisplay } from './components/RankingDisplay.jsx';
 import { SetupView } from './components/SetupView.jsx';
 import { PlanningView } from './components/PlanningView.jsx';
+import { ExecutionView } from './components/ExecutionView.jsx';
 
 import { checkSession, doLogin } from './api/auth.js'
 import { getSegments, getStations } from './api/api.js';
@@ -48,7 +49,8 @@ function App() {
             <Route path='logout' element={<Logout login={login} />} />
             <Route path='setup' element={<SetupView />} />
             <Route path='planning' element={<PlanningView setRoute={setRoute}/>} />
-            <Route path='*' element={<h1>Something went wrong{console.log(route)}</h1>} />
+            <Route path='execution' element={<ExecutionView route={route}/>} />
+            <Route path='*' element={<h1>Route invalid</h1>} />
           </Route>
         </Routes>
       </Container>
