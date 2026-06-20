@@ -19,7 +19,7 @@ function SetupView(props){
         setSegments(filtered_segments);
       }
       catch (ex){
-        navigate('/*');
+        navigate('/error');
       }
     }
     getSegmentList()

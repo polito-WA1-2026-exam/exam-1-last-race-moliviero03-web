@@ -30,7 +30,7 @@ function ExecutionView(props){
                 setSegments(filtered_segments);
             }
             catch (ex){
-                navigate('/*');
+                navigate('/error');
             }
         }
         getNetworkMapWithRoute();

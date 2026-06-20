@@ -30,7 +30,7 @@ function PlanningView(props){
         setStartAndFinish(getRandomStation(shuffled_stations, shuffled_segments));
       }
       catch (ex){
-        navigate('/*');
+        navigate('/error');
       }
     }
     getNetworkMap()

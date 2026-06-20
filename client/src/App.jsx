@@ -50,7 +50,7 @@ function App() {
             <Route path='setup' element={<SetupView />} />
             <Route path='planning' element={<PlanningView setRoute={setRoute}/>} />
             <Route path='execution' element={<ExecutionView route={route}/>} />
-            <Route path='*' element={<h1>Route invalid</h1>} />
+            <Route path='error' element={<h1>Route invalid</h1>} />
           </Route>
         </Routes>
       </Container>

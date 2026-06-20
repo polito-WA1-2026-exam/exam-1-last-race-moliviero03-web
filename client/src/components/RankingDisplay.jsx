@@ -16,7 +16,7 @@ function RankingDisplay(props){
                 setPlayers(players_list);
             }
             catch (ex){
-                navigate('/*');
+                navigate('/error');
             }
         }
         getPlayerList()
