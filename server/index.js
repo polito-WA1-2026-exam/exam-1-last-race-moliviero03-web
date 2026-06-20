@@ -7,7 +7,7 @@ import passport from "passport";
 import LocalStrategy from 'passport-local';
 import session from 'express-session';
 
-import { getUser, listPlayers, listSegments, listLines, listEvents, listStations } from "./dao.js";
+import { getUser, listPlayers, listSegments, listLines, listEvents, listStations, updateUserScore } from "./dao.js";
 
 // init express
 const app = new express();
@@ -93,6 +93,18 @@ app.get("/api/lines", isLoggedIn, (req, res) => {
 app.get("/api/events", isLoggedIn, (req, res) => {
   listEvents().then(events => res.json(events)).catch(() => res.status(500).end());
 });
+
+app.patch("/api/score", isLoggedIn, [check("score").notEmpty(), check("score").isNumeric()], (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()){
+    return res.status(422).json({errors: errors.array()});
+  }
+
+  const userId = req.user.id;
+  const score = req.body.score;
+
+  updateUserScore(userId, score).then(() => res.status(200).json({ message: "Score updated succesfully"})).catch(() => res.status(500).end());
+})
 
 // activate the server
 app.listen(port, () => {

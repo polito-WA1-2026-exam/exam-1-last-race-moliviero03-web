@@ -137,3 +137,17 @@ export const listEvents = () => {
         });
     });
 }
+
+export const updateUserScore = (userId, score) => {
+    return new Promise((resolve, reject) => {
+        const sql = `UPDATE user SET bestScore = ? WHERE userId = ?`;
+        db.run(sql, [score, userId], function (err){
+            if (err){
+                reject(err);
+            }
+            else{
+                resolve(this.changes);
+            }
+        });
+    });
+}
