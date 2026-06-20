@@ -51,6 +51,18 @@ function ResultView(props){
                     <RankingDisplay players={players} />
                 </Col>
             </Row>
+            <Row className="mt-1">
+                <Col xs="auto">
+                    <Button className="shadow-none px-5" onClick={() => navigate('/setup')}>
+                        New Game
+                    </Button>
+                </Col>
+                <Col xs="auto">
+                    <Button className="shadow-none px-5" onClick={() => navigate('/home')}>
+                        Home
+                    </Button>
+                </Col>
+            </Row>
         </Container>
     )
 }
