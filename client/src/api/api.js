@@ -38,6 +38,25 @@ async function getStations() {
     }
 }
 
+async function getEvents() {
+    try{
+        const resp = await fetch('http://localhost:3001/api/events', {
+            credentials: 'include'
+        });
+
+        if (resp.ok){
+            const event_list = await resp.json();
+            return event_list;
+        }
+        else{
+            throw new Error("HTTP error in getEvents, code=" + resp.status);
+        }
+    }
+    catch (ex){
+        throw new Error("Network error", { cause: ex });
+    }
+}
+
 async function getPlayers() {
     try{
         const resp = await fetch('http://localhost:3001/api/players');
@@ -55,4 +74,4 @@ async function getPlayers() {
     }
 }
 
-export {getSegments, getStations, getPlayers}
+export {getSegments, getStations, getEvents, getPlayers}

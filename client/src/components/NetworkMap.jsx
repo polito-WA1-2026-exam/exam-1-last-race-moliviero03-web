@@ -27,7 +27,7 @@ function NetworkMap(props){
     return(
         <div style={{ border: '2px solid black', width: '950px', height: '600px', backgroundColor: '#e9ecef'}}>
             <svg width="100%" height="100%">
-                <DrawSegments segments={segments} overrideColor={props.overrideColor}/>
+                <DrawSegments segments={segments} overrideColor={props.overrideColor} eventSegment={props.eventSegment}/>
                 <DrawStations stationNames={stationNames} startAndFinish={props.startAndFinish}/>
             </svg>
         </div>
@@ -64,18 +64,22 @@ function DrawStations(props){
 
 function DrawSegments(props){
     const segments = props.segments;
+    const eventSeg = props.eventSegment;
 
     return (
         <>
             {segments.map((segment) => {
                 if (segment.active == 1){
+                    const eventColor = (eventSeg && (
+                        (segment.station1 === eventSeg.station1 && segment.station2 === eventSeg.station2) ||
+                        (segment.station1 === eventSeg.station2 && segment.station2 === eventSeg.station1))) ? "green" : undefined;
                     const p1 = stations[segment.station1];
                     const p2 = stations[segment.station2];
 
                     const key = `${segment.station1} - ${segment.station2}`;
 
                     return (
-                        <line key={key} x1={p1.x} y1={p1.y} x2={p2.x} y2={p2.y} stroke={props.overrideColor || segment.color} strokeWidth="6" />
+                        <line key={key} x1={p1.x} y1={p1.y} x2={p2.x} y2={p2.y} stroke={eventColor || props.overrideColor || segment.color} strokeWidth="6" />
                     );
                 }
                 return null;
