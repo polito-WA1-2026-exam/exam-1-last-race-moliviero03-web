@@ -21,7 +21,7 @@ function RulesDisplay(props){
                 at the "finish" one; there is no extra connections apart the ones building the route.</li>
                 <li><strong>Execution:</strong> The game will show the submitted and valid route.
                 For each connection, it will show a random event. This event will increment/decrement/not affect
-                the player's coins, which start from 20.</li>
+                the player's coins, which starts from 20.</li>
                 <li><strong>Result:</strong>Here the result is shown on the left. If the route was invalid, the score is
                 automatically set to 0; same if the coins went negative. On the right the ranking board
                 is shown. Then if the player wants to play another game, he has to click on the "New Game" button,
