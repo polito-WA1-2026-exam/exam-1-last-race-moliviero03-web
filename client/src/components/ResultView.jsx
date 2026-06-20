@@ -8,7 +8,9 @@ import { RankingDisplay } from "./RankingDisplay";
 import UserContext from "../contexts/UserContext";
 
 function ResultView(props){
-    const score = props.score;
+    const score = props.score < 0 ? 0 : props.score;
+
+    const wasInvalid = props.score === -100;
 
     const user = useContext(UserContext);
 
@@ -41,6 +43,7 @@ function ResultView(props){
             <Row className="justify-content-center mb-2">
                 <Col md={6}>
                     <h2>Game finished!</h2>
+                    {wasInvalid && (<h3>Route was invalid</h3>)}
                     <h3>Your score is: {score}</h3>
                     {isNewRecord && (<h4 className="text-success">New personal record!!!</h4>)}
                 </Col>

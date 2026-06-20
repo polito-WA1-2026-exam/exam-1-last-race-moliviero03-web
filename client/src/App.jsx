@@ -26,7 +26,7 @@ function App() {
 
   const [route, setRoute] = useState([]);
 
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState(-100);
 
   useEffect(() => {
     checkSession().then(result => {
