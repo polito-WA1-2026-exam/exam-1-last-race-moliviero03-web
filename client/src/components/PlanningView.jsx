@@ -60,19 +60,10 @@ function PlanningView(props){
       </Row>
       <Row className="justify-content-center">
         <Col md={2}>
-            <Timer />
+            <Timer route={localRoute} startAndFinish={startAndFinish} setRoute={props.setRoute} navigate={navigate}/>
         </Col>
         <Col md={2}>
-          <Button className="shadow-none px-5" onClick={() => {
-            const valid = validate(localRoute, startAndFinish);
-            if (valid === false){
-              navigate('/*');
-            }
-            else{
-              props.setRoute(valid);
-              navigate('/execution');
-            }
-          }}>
+          <Button className="shadow-none px-5" onClick={() => {terminate(localRoute, startAndFinish, props.setRoute, navigate)}}>
             SUBMIT
           </Button>
         </Col>
@@ -83,6 +74,10 @@ function PlanningView(props){
 
 function Timer(props){
     const [time, setTime] = useState(90);
+    const route = props.route;
+    const startAndFinish = props.startAndFinish;
+    const setRoute = props.setRoute;
+    const navigate = props.navigate;
 
     useEffect(() => {
         const interval = setInterval(() =>{setTime(prevTime => prevTime - 1);}, 1000);
@@ -93,12 +88,24 @@ function Timer(props){
     useEffect(() => {
         if (time <= 0){
             console.log("Time's up");
+            terminate(route, startAndFinish, setRoute, navigate);
         }
     }, [time]);
 
     return(
         <h2>{time}</h2>
     )
+}
+
+const terminate = (route, startAndFinish, setRoute, navigate) => {
+  const valid = validate(route, startAndFinish);
+  if (valid === false){
+    navigate('/*');
+  }
+  else{
+    setRoute(valid);
+    navigate('/execution');
+  }
 }
 
 const randomStation = (station_list, segment_list) => {
