@@ -13,17 +13,20 @@ import { RankingDisplay } from './components/RankingDisplay.jsx';
 import { SetupView } from './components/SetupView.jsx';
 import { PlanningView } from './components/PlanningView.jsx';
 import { ExecutionView } from './components/ExecutionView.jsx';
+import { ResultView } from './components/ResultView.jsx';
 
 import { checkSession, doLogin } from './api/auth.js'
-import { getSegments, getStations } from './api/api.js';
+import { getSegments, getStations, getPlayers } from './api/api.js';
 
 function App() {
 
   const navigate = useNavigate();
 
-  const [user, setUser] = useState({id: undefined, name: undefined, surname: undefined, username: undefined, score: undefined});
+  const [user, setUser] = useState({id: undefined, name: undefined, surname: undefined, username: undefined, bestScore: undefined});
 
   const [route, setRoute] = useState([]);
+
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     checkSession().then(result => {
@@ -38,6 +41,10 @@ function App() {
     navigate('/home');
   }
 
+  const updateBestScore = (score) => {
+    setUser(old => ({...old, bestScore: score}));
+  }
+
   return (
     <UserContext.Provider value={user}>
       <Container>
@@ -49,7 +56,8 @@ function App() {
             <Route path='logout' element={<Logout login={login} />} />
             <Route path='setup' element={<SetupView />} />
             <Route path='planning' element={<PlanningView setRoute={setRoute}/>} />
-            <Route path='execution' element={<ExecutionView route={route}/>} />
+            <Route path='execution' element={<ExecutionView route={route} setScore={setScore}/>} />
+            <Route path='result' element={<ResultView score={score} updateBestScore={updateBestScore}/>} />
             <Route path='error' element={<h1>Route invalid</h1>} />
           </Route>
         </Routes>
@@ -69,7 +77,22 @@ function MainLayout(props){
 }
 
 function HomeView(props){
-  const navigate = useNavigate();
+  const [players, setPlayers] = useState([]);
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+      async function getPlayerList(){
+          try{
+              const players_list = await getPlayers();
+              setPlayers(players_list);
+          }
+          catch (ex){
+              navigate('/error');
+          }
+      }
+      getPlayerList()
+  }, []);
 
   return(
     <Container>
@@ -83,7 +106,7 @@ function HomeView(props){
           </Button>
         </Col>
         <Col md={5} className="d-flex">
-          <RankingDisplay />
+          <RankingDisplay players={players}/>
         </Col>
       </Row>
     </Container>

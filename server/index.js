@@ -74,7 +74,7 @@ app.delete("/api/sessions/current", (req, res) => {
   });
 });
 
-app.get("/api/players", (req, res) => {
+app.get("/api/players", isLoggedIn, (req, res) => {
   listPlayers().then(players => res.json(players)).catch(() => res.status(500).end());
 });
 

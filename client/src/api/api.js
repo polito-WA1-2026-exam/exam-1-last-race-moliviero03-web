@@ -57,7 +57,9 @@ async function getEvents() {
 
 async function getPlayers() {
     try{
-        const resp = await fetch('http://localhost:3001/api/players');
+        const resp = await fetch('http://localhost:3001/api/players', {
+            credentials: 'include'
+        });
 
         if (resp.ok){
             const players_list = await resp.json();
@@ -68,8 +70,31 @@ async function getPlayers() {
         }
     }
     catch (ex){
-        throw new Error("Network error", { cause: ex })
+        throw new Error("Network error", { cause: ex });
     }
 }
 
-export {getSegments, getStations, getEvents, getPlayers}
+async function updateScore(score) {
+    try{
+        const resp = await fetch('http://localhost:3001/api/score', {
+            method: 'PATCH',
+            body: JSON.stringify({ score: score }),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        });
+
+        if (resp.ok){
+            return true;
+        }
+        else{
+            throw new Error("HTTP error in updateScore, code=" + resp.status);
+        }
+    }
+    catch (ex){
+        throw new Error("Network error", { cause: ex });
+    }
+}
+
+export {getSegments, getStations, getEvents, getPlayers, updateScore}

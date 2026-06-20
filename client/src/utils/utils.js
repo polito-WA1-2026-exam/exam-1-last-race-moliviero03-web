@@ -1,7 +1,7 @@
 const terminate = (route, startAndFinish, setRoute, navigate) => {
   const valid = validate(route, startAndFinish);
   if (valid === false){
-    navigate('/*');
+    navigate('/error');
   }
   else{
     setRoute(valid);

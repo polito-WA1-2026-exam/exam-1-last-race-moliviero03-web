@@ -5,22 +5,9 @@ import { useNavigate } from "react-router";
 import { getPlayers } from "../api/api";
 
 function RankingDisplay(props){
-    const [players, setPlayers] = useState([]);
+    const players = props.players;
 
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        async function getPlayerList(){
-            try{
-                const players_list = await getPlayers();
-                setPlayers(players_list);
-            }
-            catch (ex){
-                navigate('/error');
-            }
-        }
-        getPlayerList()
-    }, []);
+    const sortedPlayers = [...players].sort((a, b) => b.best_score-a.best_score);
 
     return(
         <Table striped bordered hover>
@@ -34,7 +21,7 @@ function RankingDisplay(props){
                 </tr>
             </thead>
             <tbody>
-                {players.map((p) => <PlayerRow key={p.username} p={p}></PlayerRow>)}
+                {sortedPlayers.map((p) => <PlayerRow key={p.username} p={p}></PlayerRow>)}
             </tbody>
         </Table>
     )
