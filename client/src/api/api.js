@@ -1,5 +1,3 @@
-import { Segment } from "../models/Models.js";
-
 async function getSegments() {
     try{
         const resp = await fetch('http://localhost:3001/api/segments', {

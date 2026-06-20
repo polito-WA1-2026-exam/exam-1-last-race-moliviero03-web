@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { NetworkMap } from "./NetworkMap";
 
 import { getSegments, getEvents } from "../api/api";
+import { shuffle, getStartAndFinish, getRandomEvent } from "../utils/utils";
 
 function ExecutionView(props){
     const route = props.route;
@@ -132,32 +133,6 @@ function Event(props){
             </Col>
         </Row>
     )
-}
-
-const getStartAndFinish = (route) => {
-    const firstSeg = route[0];
-    const secondSeg = route[1];
-
-    const almostLastSeg = route[route.length-2];
-    const lastSeg = route[route.length -1];
-
-    const start = (firstSeg.station1 !== secondSeg.station1 && firstSeg.station1 !== secondSeg.station2) ? firstSeg.station1 : firstSeg.station2;
-    const finish = (lastSeg.station1 !== almostLastSeg.station1 && lastSeg.station1 !== almostLastSeg.station2) ? lastSeg.station1 : lastSeg.station2;
-
-    return [start, finish];
-}
-
-const shuffle = (list) => {
-  const newList = [...list];
-  for (let i = newList.length - 1; i > 0; i--){
-    const j = Math.floor(Math.random() * (i + 1));
-    [newList[i], newList[j]] = [newList[j], newList[i]];
-  }
-  return newList;
-}
-
-const getRandomEvent = (events) => {
-    return events[Math.floor(Math.random() * events.length)];
 }
 
 export {ExecutionView};
