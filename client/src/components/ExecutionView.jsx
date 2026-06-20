@@ -43,7 +43,7 @@ function ExecutionView(props){
                     <NetworkMap segments={segments} overrideColor={"red"} startAndFinish={startAndFinish} eventSegment={currSeg}/>
                 </Col>
             </Row>
-            <Event route={route} setCurrSeg={setCurrSeg} setScore={props.setScore}/>
+            <Event route={route} setRoute={props.setRoute} setCurrSeg={setCurrSeg} setScore={props.setScore}/>
         </Container>
     )
 }
@@ -82,6 +82,7 @@ function Event(props){
     useEffect(() => {
         if (currIdx >= route.length){
             props.setScore(coins);
+            props.setRoute([]);
             navigate('/result');
         }
     }, [currIdx, route.length, navigate]);

@@ -56,8 +56,8 @@ function App() {
             <Route path='logout' element={<Logout login={login} />} />
             <Route path='setup' element={<SetupView />} />
             <Route path='planning' element={<PlanningView setRoute={setRoute}/>} />
-            <Route path='execution' element={<ExecutionView route={route} setScore={setScore}/>} />
-            <Route path='result' element={<ResultView score={score} updateBestScore={updateBestScore}/>} />
+            <Route path='execution' element={<ExecutionView route={route} setRoute={setRoute} setScore={setScore}/>} />
+            <Route path='result' element={<ResultView score={score} setScore={setScore} updateBestScore={updateBestScore}/>} />
             <Route path='error' element={<h1>Route invalid</h1>} />
           </Route>
         </Routes>

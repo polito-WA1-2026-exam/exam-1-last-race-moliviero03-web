@@ -53,12 +53,18 @@ function ResultView(props){
             </Row>
             <Row className="mt-1">
                 <Col xs="auto">
-                    <Button className="shadow-none px-5" onClick={() => navigate('/setup')}>
+                    <Button className="shadow-none px-5" onClick={() => {
+                            props.setScore(-100);
+                            navigate('/setup')
+                        }}>
                         New Game
                     </Button>
                 </Col>
                 <Col xs="auto">
-                    <Button className="shadow-none px-5" onClick={() => navigate('/home')}>
+                    <Button className="shadow-none px-5" onClick={() => {
+                            props.setScore(-100);
+                            navigate('/home')
+                        }}>
                         Home
                     </Button>
                 </Col>
