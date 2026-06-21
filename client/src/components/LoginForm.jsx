@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { doLogin, doLogout } from "../api/auth";
 import { useNavigate } from "react-router";
-import { Form, Button, Container } from "react-bootstrap";
+import { Form, Button, Container, Spinner } from "react-bootstrap";
 
 function LoginForm(props){
 
@@ -50,14 +50,21 @@ function Logout(props){
 
     useEffect(() => {
         doLogout().then(() => {
-            props.login({id: undefined, name: undefined, surname: undefined, username: undefined, bestScore: undefined});
-            navigate('/');
+            props.logout();
+            setTimeout(() => { navigate('/'); }, 3000);
         }).catch(() => {
-            props.login({id: undefined, name: undefined, surname: undefined, username: undefined, bestScore: undefined});
+            props.logout();
             navigate('/');
         })
-    }, [])
-    return "Logging out...";
+    }, []);
+
+    return (
+        <Container className="text-center mt-5">
+            <h2>Logging out...</h2>
+            <Spinner animation="border" variant="primary" className="mt-3" />
+            <p className="mt-2">You will go back to the base page</p>
+        </Container>
+    );
 }
 
 export {LoginForm, Logout}

@@ -59,6 +59,10 @@ function App() {
     navigate('/home');
   }
 
+  const logout = () => {
+    setUser({id: undefined, name: undefined, surname: undefined, username: undefined, bestScore: undefined});
+  }
+
   const updateBestScore = (score) => {
     setUser(old => ({...old, bestScore: score}));
   }
@@ -71,7 +75,7 @@ function App() {
             <Route index element={<RulesDisplay />} />
             <Route path='home' element={<HomeView />} />
             <Route path='login' element={<LoginForm login={login} />} />
-            <Route path='logout' element={<Logout login={login} />} />
+            <Route path='logout' element={<Logout logout={logout} />} />
             <Route path='setup' element={<SetupView />} />
             <Route path='planning' element={<PlanningView setRoute={setRoute}/>} />
             <Route path='execution' element={<ExecutionView route={route} setRoute={setRoute} setScore={setScore}/>} />
