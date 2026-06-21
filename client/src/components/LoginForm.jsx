@@ -19,7 +19,7 @@ function LoginForm(props){
         }
         catch (err){
             setError(err.message);
-            setTimeout(() => setErrormsg(''), 3000);
+            setTimeout(() => setError('Wrong credentials'), 3000);
         }
     }
 
@@ -50,7 +50,10 @@ function Logout(props){
 
     useEffect(() => {
         doLogout().then(() => {
-            props.login({id: undefined, name: undefined, surname: undefined, username: undefined, score: undefined});
+            props.login({id: undefined, name: undefined, surname: undefined, username: undefined, bestScore: undefined});
+            navigate('/');
+        }).catch(() => {
+            props.login({id: undefined, name: undefined, surname: undefined, username: undefined, bestScore: undefined});
             navigate('/');
         })
     }, [])

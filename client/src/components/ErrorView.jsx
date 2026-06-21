@@ -5,7 +5,7 @@ function ErrorView() {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const errorMessage = location.state?.message || "Si è verificato un errore di sistema sconosciuto.";
+    const errorMessage = location.state?.message || "Unknown system error";
 
     return (
         <Container className="text-center mt-5">
@@ -17,7 +17,7 @@ function ErrorView() {
                 className="mt-4 shadow-none" 
                 onClick={() => navigate('/home')}
             >
-                Torna alla Home
+                Go back to Home
             </Button>
         </Container>
     );

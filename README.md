@@ -1,5 +1,5 @@
-# Exam #N: "Exam Title"
-## Student: s123456 LASTNAME FIRSTNAME 
+# Exam #1: "Last Race"
+## Student: s361264 OLIVIERO MARCO 
 
 ## React Client Application Routes
 
@@ -40,9 +40,10 @@
 
 ## Users Credentials
 
-- username, password (plus any other requested info)
-- username, password (plus any other requested info)
+- username: mario.rossi, password: password_di_mario
+- username: luca.verdi, password: password_di_luca
+- username: andrea.bianchi, password: password_di_andrea
+- username: giorgio.neri, password: password_di_giorgio
 
 ## Use of AI Tools
-Briefly describe whether you used any AI tools (e.g., ChatGPT, GitHub Copilot, Claude) while working on this project, for which purposes (e.g., clarifying concepts, debugging, generating code), and how you verified or adapted their output.
-If you did not use any AI tools, simply state so.
+I used Gemini to help me understand if the logic I created for some functions was right or not. I also used it for filling some css fields I didn't know for designing the front-end. And for last, I used it to understand some unknown errors in the system.

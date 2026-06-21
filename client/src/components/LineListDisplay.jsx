@@ -37,10 +37,10 @@ function LineListDisplay(props){
     }
 
     return (
-        <container className="mb-1">
+        <Container className="mb-1">
             <ListGroup>
                 {lines.map((l) => {
-                    const lineColor = l.segments[0].color;
+                    const lineColor = (l.segments && l.segments.length > 0) ? l.segments[0].color : "black";
                     return (
                         <ListGroup.Item key={l.lineNumber} style={{ color: lineColor, fontWeight: "500"}} className="mb-2 border">
                             <strong>Line {l.lineNumber}: </strong>{getLineStations(l.segments)}
@@ -48,7 +48,7 @@ function LineListDisplay(props){
                     )
                 })}
             </ListGroup>
-        </container>
+        </Container>
     )
 }
 

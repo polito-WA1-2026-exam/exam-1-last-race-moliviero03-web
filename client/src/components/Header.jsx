@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Button, Container, Navbar } from "react-bootstrap";
-import { Link, Links, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 import UserContext from "../contexts/UserContext";
 
