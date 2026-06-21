@@ -20,7 +20,9 @@ function SetupView(props){
         setSegments(filtered_segments);
       }
       catch (ex){
-        navigate('/error');
+        navigate('/error', {
+            state: { message: ex.message || "Unknown error" }
+        });
       }
     }
     getSegmentList()

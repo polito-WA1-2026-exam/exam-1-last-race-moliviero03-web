@@ -19,7 +19,7 @@ function LoginForm(props){
         }
         catch (err){
             setError(err.message);
-            setTimeout(() => setError('', 3000));
+            setTimeout(() => setErrormsg(''), 3000);
         }
     }
 

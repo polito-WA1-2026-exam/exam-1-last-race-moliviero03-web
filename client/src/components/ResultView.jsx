@@ -32,7 +32,9 @@ function ResultView(props){
                 setPlayers(players_list);
             }
             catch (ex){
-                navigate('/error');
+                navigate('/error', {
+                    state: { message: ex.message || "Unknown error" }
+                });
             }
         }
         syncAndGetPlayers()

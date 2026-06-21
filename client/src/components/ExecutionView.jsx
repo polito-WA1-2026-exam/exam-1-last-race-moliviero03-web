@@ -30,7 +30,9 @@ function ExecutionView(props){
                 setSegments(filtered_segments);
             }
             catch (ex){
-                navigate('/error');
+                navigate('/error', {
+                    state: { message: ex.message || "Unknown error" }
+                });
             }
         }
         getNetworkMapWithRoute();
@@ -66,8 +68,9 @@ function Event(props){
                 setEvents(shuffled_events);
             }
             catch (ex){
-                console.log(ex);
-                navigate('/error');
+                navigate('/error', {
+                    state: { message: ex.message || "Unknown error" }
+                });
             }
         }
         getEventList()

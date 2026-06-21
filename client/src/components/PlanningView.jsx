@@ -30,7 +30,9 @@ function PlanningView(props){
         setStartAndFinish(getRandomStation(shuffled_stations, shuffled_segments));
       }
       catch (ex){
-        navigate('/error');
+        navigate('/error', {
+            state: { message: ex.message || "Unknown error" }
+        });
       }
     }
     getNetworkMap()

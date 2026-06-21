@@ -14,6 +14,7 @@ import { SetupView } from './components/SetupView.jsx';
 import { PlanningView } from './components/PlanningView.jsx';
 import { ExecutionView } from './components/ExecutionView.jsx';
 import { ResultView } from './components/ResultView.jsx';
+import { ErrorView } from './components/ErrorView.jsx';
 
 import { checkSession, doLogin } from './api/auth.js'
 import { getSegments, getStations, getPlayers } from './api/api.js';
@@ -58,7 +59,7 @@ function App() {
             <Route path='planning' element={<PlanningView setRoute={setRoute}/>} />
             <Route path='execution' element={<ExecutionView route={route} setRoute={setRoute} setScore={setScore}/>} />
             <Route path='result' element={<ResultView score={score} setScore={setScore} updateBestScore={updateBestScore}/>} />
-            <Route path='error' element={<h1>Route invalid</h1>} />
+            <Route path='error' element={<ErrorView />} />
           </Route>
         </Routes>
       </Container>
