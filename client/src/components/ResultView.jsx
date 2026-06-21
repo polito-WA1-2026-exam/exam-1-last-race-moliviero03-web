@@ -43,17 +43,14 @@ function ResultView(props){
     return (
         <Container className="mt-1">
             <Row className="justify-content-center mb-2">
-                <Col md={6}>
+                <Col xs="auto">
                     <h2>Game finished!</h2>
                     {wasInvalid && (<h3>Route was invalid</h3>)}
                     <h3>Your score is: {score}</h3>
                     {isNewRecord && (<h4 className="text-success">New personal record!!!</h4>)}
                 </Col>
-                <Col md={6} className="d-flex">
-                    <RankingDisplay players={players} />
-                </Col>
             </Row>
-            <Row className="mt-1">
+            <Row className="mt-1 justify-content-center">
                 <Col xs="auto">
                     <Button className="shadow-none px-5" onClick={() => {
                             props.setScore(-100);
