@@ -14,7 +14,7 @@ function SegmentListDisplay(props){
                         <ListGroup.Item key={key}
                             className={`mb-2 rounded border shadow-sm text-center ${isSelected ? 'opacity-50 bg-light' : ''}`}
                             action
-                            onClick={() => props.addSegment(s)}>
+                            onClick={() => props.addOrRemoveSegment(s)}>
                             <div className="fw-bold">{s.station1}</div>
                             <div className="text-muted small">↕</div>
                             <div className="fw-bold">{s.station2}</div>

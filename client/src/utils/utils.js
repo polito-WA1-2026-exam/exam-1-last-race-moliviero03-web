@@ -4,7 +4,7 @@ const terminate = (route, startAndFinish, setRoute, navigate) => {
     navigate('/result');
   }
   else{
-    setRoute(valid);
+    setRoute(route);
     navigate('/execution');
   }
 }
@@ -80,6 +80,7 @@ const check = (graph, startAndFinish) => {
   return dist[finish] !== undefined && dist[finish] > 2;
 }
 
+/*
 const validate = (route, startAndFinish) => {
   let r = [...route];
 
@@ -124,6 +125,29 @@ const validate = (route, startAndFinish) => {
   }
 
   return fr;
+}
+*/
+
+const validate = (route, startAndFinish) => {
+  if (!route || route.length === 0) return false;
+
+  const start = startAndFinish[0];
+  const finish = startAndFinish[1];
+
+  let currStat = start;
+
+  for (let seg of route){
+    if (seg.station1 === currStat || seg.station2 === currStat){
+      currStat = seg.station1 === currStat ? seg.station2 : seg.station1;
+    }
+    else{
+      return false;
+    }
+  }
+
+  if (currStat !== finish) return false;
+
+  return true;
 }
 
 const getStartAndFinish = (route) => {

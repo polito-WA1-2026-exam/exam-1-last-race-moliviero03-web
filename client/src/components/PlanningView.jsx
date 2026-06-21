@@ -38,7 +38,7 @@ function PlanningView(props){
     getNetworkMap()
   }, []);
 
-  const addSegment = (segment) => {
+  const addOrRemoveSegment = (segment) => {
     const isActive = segment.active === 1;
     setSegments(old => old.map(s => 
         (s.station1 === segment.station1 && s.station2 === segment.station2)
@@ -58,7 +58,7 @@ function PlanningView(props){
           <NetworkMap segments={segments} overrideColor={"orange"} startAndFinish={startAndFinish} />
         </Col>
         <Col md={3} className="d-flex">
-          <SegmentListDisplay segments={segments} addSegment={addSegment} />
+          <SegmentListDisplay segments={segments} addOrRemoveSegment={addOrRemoveSegment} />
         </Col>
       </Row>
       <Row className="justify-content-center">
