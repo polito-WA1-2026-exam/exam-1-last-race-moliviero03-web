@@ -24,8 +24,6 @@ function App() {
   const navigate = useNavigate();
 
   const [user, setUser] = useState({id: undefined, name: undefined, surname: undefined, username: undefined, bestScore: undefined});
-
-  const [players, setPlayers] = useState([]);
   
   const [route, setRoute] = useState([]);
 
@@ -37,21 +35,6 @@ function App() {
         setUser({id: result.userId, name: result.name, surname: result.surname, username: result.username, bestScore: result.bestScore});
       }
     })
-  }, []);
-
-  useEffect(() => {
-      async function getPlayerList(){
-          try{
-              const players_list = await getPlayers();
-              setPlayers(players_list);
-          }
-          catch (ex){
-              navigate('/error', {
-                state: { message: ex.message || "Unknown error" }
-            });
-          }
-      }
-      getPlayerList()
   }, []);
 
   const login = (user) => {
@@ -80,7 +63,7 @@ function App() {
             <Route path='planning' element={<PlanningView setRoute={setRoute}/>} />
             <Route path='execution' element={<ExecutionView route={route} setRoute={setRoute} setScore={setScore}/>} />
             <Route path='result' element={<ResultView score={score} setScore={setScore} updateBestScore={updateBestScore}/>} />
-            <Route path='ranking' element={<RankingDisplay players={players} />} />
+            <Route path='ranking' element={<RnakingView />} />
             <Route path='error' element={<ErrorView />} />
           </Route>
         </Routes>
@@ -120,6 +103,31 @@ function HomeView(props){
         </Col>
       </Row>
     </Container>
+  )
+}
+
+function RnakingView(props){
+  const [players, setPlayers] = useState([]);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+      async function getPlayerList(){
+          try{
+              const players_list = await getPlayers();
+              setPlayers(players_list);
+          }
+          catch (ex){
+              navigate('/error', {
+                state: { message: ex.message || "Unknown error" }
+            });
+          }
+      }
+      getPlayerList()
+  }, []);
+
+  return (
+    <RankingDisplay players={players} />
   )
 }
 
