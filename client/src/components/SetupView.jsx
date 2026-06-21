@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 
 import { NetworkMap } from "./NetworkMap";
+import { LineListDisplay } from "./LineListDisplay";
 
 import { getSegments } from "../api/api";
 
@@ -33,6 +34,9 @@ function SetupView(props){
         </Col>
       </Row>
       <Row className="justify-content-center">
+        <Col xs="auto">
+          <LineListDisplay />
+        </Col>
         <Col xs="auto">
           <Button className="shadow-none px-5" onClick={() => navigate('/planning')}>
             GO ON

@@ -1,3 +1,22 @@
+async function getLines() {
+    try{
+        const resp = await fetch('http://localhost:3001/api/lines', {
+            credentials: 'include'
+        });
+
+        if (resp.ok){
+            const lines_list = await resp.json();
+            return lines_list;
+        }
+        else{
+            throw new Error("HTTP error in getLines, code=" + resp.status);
+        }
+    }
+    catch (ex){
+        throw new Error("Network error", { cause: ex });
+    }
+}
+
 async function getSegments() {
     try{
         const resp = await fetch('http://localhost:3001/api/segments', {
@@ -97,4 +116,4 @@ async function updateScore(score) {
     }
 }
 
-export {getSegments, getStations, getEvents, getPlayers, updateScore}
+export {getLines, getSegments, getStations, getEvents, getPlayers, updateScore}
