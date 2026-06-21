@@ -10,7 +10,7 @@ function Header(props){
     const dest = user.username ? '/home' : '/';
 
     return (
-        <Navbar bg='info'>
+        <Navbar style={{ backgroundColor: '#f35f10' }} data-bs-theme="dark">
             <Container fluid>
                 <h1 style={{color: 'black'}}><Link to={dest}>Race The Rails</Link></h1>
                 <div>{user.username ? <UserInfo username={user.username}/> : <LoginButton/>}</div>
