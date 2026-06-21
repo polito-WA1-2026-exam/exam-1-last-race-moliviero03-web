@@ -1,5 +1,5 @@
 import { Container, Button } from "react-bootstrap";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 function ErrorView() {
     const location = useLocation();
