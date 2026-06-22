@@ -151,16 +151,18 @@ const validate = (route, startAndFinish) => {
 }
 
 const getStartAndFinish = (route) => {
-    const firstSeg = route[0];
-    const secondSeg = route[1];
+  if (!route || route-length === 0) return [null, null];
 
-    const almostLastSeg = route[route.length-2];
-    const lastSeg = route[route.length -1];
+  const firstSeg = route[0];
+  const secondSeg = route[1];
 
-    const start = (firstSeg.station1 !== secondSeg.station1 && firstSeg.station1 !== secondSeg.station2) ? firstSeg.station1 : firstSeg.station2;
-    const finish = (lastSeg.station1 !== almostLastSeg.station1 && lastSeg.station1 !== almostLastSeg.station2) ? lastSeg.station1 : lastSeg.station2;
+  const almostLastSeg = route[route.length-2];
+  const lastSeg = route[route.length -1];
 
-    return [start, finish];
+  const start = (firstSeg.station1 !== secondSeg.station1 && firstSeg.station1 !== secondSeg.station2) ? firstSeg.station1 : firstSeg.station2;
+  const finish = (lastSeg.station1 !== almostLastSeg.station1 && lastSeg.station1 !== almostLastSeg.station2) ? lastSeg.station1 : lastSeg.station2;
+
+  return [start, finish];
 }
 
 const getRandomEvent = (events) => {
