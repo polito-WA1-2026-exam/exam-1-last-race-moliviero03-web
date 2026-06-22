@@ -145,9 +145,9 @@
 
 ## Database Tables
 
-- Table `user` - contains userId, name, surname, username, bestScore, hashedPassword, salt
-- Table `line` - contains lineNumber, station1, station2, segIndex, color
-- Table `event` - contains id, description, effect
+- Table `user` - contains userId, name, surname, username, bestScore, hashedPassword, salt: this table stores the registered users with their characteristics, including the best score, which will be the only field modified by the client.
+- Table `line` - contains lineNumber, station1, station2, segIndex, color: evry row in this table represent a segment of the line. Field "segIndex" is useful only to build the line in a sorted way.
+- Table `event` - contains id, description, effect: simple table to stre the events.
 
 ## Main React Components
 
