@@ -48,6 +48,7 @@ function LoginForm(props){
 function Logout(props){
     const navigate = useNavigate();
 
+    // when we logout, we wait 3 seconds before going back to the base page
     useEffect(() => {
         doLogout().then(() => {
             props.logout();

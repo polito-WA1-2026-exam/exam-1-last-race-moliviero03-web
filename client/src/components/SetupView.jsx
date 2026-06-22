@@ -12,6 +12,7 @@ function SetupView(props){
 
   const navigate = useNavigate();
 
+  // retrieve the segments and set them all active
   useEffect(() => {
     async function getSegmentList(){
       try{

@@ -18,6 +18,7 @@ function ResultView(props){
 
     const [isNewRecord, setIsNewRecord] = useState(false);
 
+    // update the score in the database if current score is higher than the best
     useEffect(() => {
         async function syncScore(){
             try{

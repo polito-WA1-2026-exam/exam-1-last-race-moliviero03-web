@@ -17,6 +17,7 @@ function PlanningView(props){
 
   const [localRoute, setLocalRoute] = useState([]);
 
+  // retrieve the segments (set all to inactive) and retrieve the stations to generate two random ones
   useEffect(() => {
     async function getNetworkMap(){
       try{
@@ -82,12 +83,14 @@ function Timer(props){
     const setRoute = props.setRoute;
     const navigate = props.navigate;
 
+    // manage the timer, every second it modifies the time variable, decrementing it by one, with clean up function to clear the interval wen component is unmounted
     useEffect(() => {
         const interval = setInterval(() =>{setTime(prevTime => prevTime - 1);}, 1000);
 
         return () => clearInterval(interval);
     }, []);
 
+    // if time is less or equal than 0 (timer expired), the phase is terminated
     useEffect(() => {
         if (time <= 0){
             console.log("Time's up");

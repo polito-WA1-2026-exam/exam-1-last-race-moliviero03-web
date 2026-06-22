@@ -15,6 +15,7 @@ function ExecutionView(props){
 
     const navigate = useNavigate();
 
+    // retrieve the network map and activate only the segments of the submitted route
     useEffect(() => {
         async function getNetworkMapWithRoute(){
             try{
@@ -60,6 +61,7 @@ function Event(props){
 
     const [currIdx, setCurrIdx] = useState(-1);
 
+    // retrieve the events
     useEffect(() => {
         async function getEventList(){
             try{
@@ -76,12 +78,14 @@ function Event(props){
         getEventList()
     }, []);
 
+    // every 5 seconds, go to the next index (so to the next segment of the route), with clean up function to clear the interval wen component is unmounted
     useEffect(() =>{
         const interval = setInterval(() => {setCurrIdx(prev => prev+1);}, 5000);
 
         return () => clearInterval(interval);
     }, []);
 
+    // when we finished scanning the route, set the final score and clean up teh route for future games
     useEffect(() => {
         if (currIdx >= route.length){
             props.setScore(coins);
@@ -90,6 +94,8 @@ function Event(props){
         }
     }, [currIdx, route.length, navigate]);
 
+    // every time the index changes, set the new current segment (so it is displayed with a different color on the map),
+    // get a random event and set it, set the coins according to the event effect
     useEffect(() => {
         if (events.length === 0){
             return;

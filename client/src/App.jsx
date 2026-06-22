@@ -29,6 +29,7 @@ function App() {
 
   const [score, setScore] = useState(-100);
 
+  // set the current user
   useEffect(() => {
     checkSession().then(result => {
       if (result){
@@ -111,6 +112,7 @@ function RnakingView(props){
 
   const navigate = useNavigate();
 
+  // retrieve the players
   useEffect(() => {
       async function getPlayerList(){
           try{

@@ -9,6 +9,7 @@ function LineListDisplay(props){
 
     const navigate = useNavigate();
 
+    // retrieve lines
     useEffect(() => {
         async function getLineList(){
             try{
