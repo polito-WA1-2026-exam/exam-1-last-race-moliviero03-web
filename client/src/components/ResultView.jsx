@@ -22,7 +22,7 @@ function ResultView(props){
     useEffect(() => {
         async function syncAndGetPlayers(){
             try{
-                if (user.bestScore === null || score > user.bestScore){
+                if (score > user.bestScore){
                     setIsNewRecord(true);
                     await updateScore(score);
                     props.updateBestScore(score);
