@@ -110,13 +110,17 @@ function Event(props){
         return null;
     }
 
+    const formattedEffect = currEv.effect > 0 ? `+${currEv.effect}` : currEv.effect;
+
     if (currIdx === -1){
         return(
-            <Row className="justify-content-center mb-2">
-                <Col xs="auto" className="d-flex">
+            <Row className="mt-2 w-100 align-items-center" style={{ maxWidth: '950px', margin: '0 auto' }}>
+                <Col md={4} className="text-start fs-5 fw-bold text-muted">
                     Execution will start soon...
                 </Col>
-                <Col xs="auto" className="d-flex">
+                <Col md={4} className="text-center fs-5">
+                </Col>
+                <Col md={4} className="text-end fs-3 fw-bold text-warning">
                     {'Coins: '}{coins}
                 </Col>
             </Row>
@@ -126,14 +130,15 @@ function Event(props){
     const localSeg = route[currIdx];
 
     return(
-        <Row className="justify-content-center mb-2">
-            <Col xs="auto" className="d-flex">
+        <Row className="mt-2 w-100 align-items-center" style={{ maxWidth: '950px', margin: '0 auto' }}>
+            <Col md={6} className="text-start fs-5 fw-bold">
                 {localSeg.station1}{'<->'}{localSeg.station2}
             </Col>
-            <Col xs="auto" className="d-flex">
-                {currEv.description}{': '}{currEv.effect}
+            <Col md={4} className="text-center fs-5 fw-bold">
+                {currEv.description}{': '}<span className={currEv.effect > 0 ? "text-success" : "text-danger"}>
+                    {formattedEffect} </span>
             </Col>
-            <Col xs="auto" className="d-flex">
+            <Col md={2} className="text-end fs-3 fw-bold text-warning">
                 {'Coins: '}{coins}
             </Col>
         </Row>
