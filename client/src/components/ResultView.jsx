@@ -16,20 +16,16 @@ function ResultView(props){
 
     const navigate = useNavigate();
 
-    const [players, setPlayers] = useState([]);
     const [isNewRecord, setIsNewRecord] = useState(false);
 
     useEffect(() => {
-        async function syncAndGetPlayers(){
+        async function syncScore(){
             try{
                 if (score > user.bestScore){
                     setIsNewRecord(true);
                     await updateScore(score);
                     props.updateBestScore(score);
                 }
-
-                const players_list = await getPlayers();
-                setPlayers(players_list);
             }
             catch (ex){
                 navigate('/error', {
@@ -37,7 +33,7 @@ function ResultView(props){
                 });
             }
         }
-        syncAndGetPlayers()
+        syncScore()
     }, [])
 
     return (
